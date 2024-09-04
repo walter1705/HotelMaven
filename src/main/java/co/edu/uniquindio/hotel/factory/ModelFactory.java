@@ -37,8 +37,8 @@ public class ModelFactory {
         cliente3.setId("1006");
         hotel.agregarCliente(cliente2);
         // Crear habitaciones
-        Habitacion habitacion1 = new Habitacion(101, "Doble", 150.0);
-        Habitacion habitacion2 = new Habitacion(102, "Suite", 250.0);
+        Habitacion habitacion1 = new HaSimple(101, 150.0);
+        Habitacion habitacion2 = new HaDoble(102,  250.0);
         hotel.agregarHabitacion(habitacion1);
         hotel.agregarHabitacion(habitacion2);
         // Crear fechas
@@ -59,8 +59,8 @@ public class ModelFactory {
         spa.consumir();
         hotel.agregarServicio(spa);
         // Crear y generar factura
-        Factura factura = new FacturaUsual(cliente1);
-        factura.generarFactura();
+       
+
         //ultimo ejercicio
         // Crear reservas
         Calendar cal = Calendar.getInstance();
@@ -77,8 +77,5 @@ public class ModelFactory {
         hotel.agregarReserva(reserva1);
         hotel.agregarReserva(reserva2);
         // Crear reporte de ingresos y mostrarlo
-        ReporteIngresos reporte = new ReporteIngresos();
-        reporte.mostrarReporteIngresos(hotel.getListaReservas(), Calendar.AUGUST, 2024);
-
     }
 }

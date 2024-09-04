@@ -9,14 +9,13 @@ public class Reserva {
     private Date fechaEntrada;
     private Date fechaSalida;
 
-
     public Reserva(Habitacion habitacion, Cliente cliente, Date fechaEntrada, Date fechaSalida) {
         this.habitacion = habitacion;
         this.cliente = cliente;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
     }
-
+    
     public Date getFechaEntrada() {
         return fechaEntrada;
     }
@@ -40,5 +39,13 @@ public class Reserva {
     public Cliente getCliente() {
         return cliente;
     }
+
+    @Override
+    public String toString() {
+        return "Reserva [habitacion=" + habitacion + ", cliente=" + cliente.getNombre() + ", con numero de identificacion: "+ cliente.getId() + ", fechaEntrada=" + fechaEntrada
+                + ", fechaSalida=" + fechaSalida + "]";
+    }
+
+    
 }
 

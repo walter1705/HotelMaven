@@ -4,15 +4,13 @@ package co.edu.uniquindio.hotel.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Habitacion {
+public abstract class Habitacion { // Puede ser "simple", "doble", "suite"
     private int numero;
-    private String tipo;  // Puede ser "simple", "doble", "suite"
     private double precio;
     private List<Servicio> servicios = new ArrayList<>();
 
-    public Habitacion(int numero, String tipo, double precio) {
+    public Habitacion(int numero, double precio) {
         this.numero = numero;
-        this.tipo = tipo;
         this.precio = precio;
     }
 
@@ -26,14 +24,6 @@ public class Habitacion {
 
     public void setNumero(int numero) {
         this.numero = numero;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public double getPrecio() {
