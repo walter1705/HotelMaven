@@ -8,7 +8,7 @@ public class Reserva {
     private Cliente cliente;
     private Date fechaEntrada;
     private Date fechaSalida;
-    private final CalculadorCostoReserva calculadorCostoReserva = new CalculadorCostoReserva();
+
 
     public Reserva(Habitacion habitacion, Cliente cliente, Date fechaEntrada, Date fechaSalida) {
         this.habitacion = habitacion;
@@ -39,10 +39,6 @@ public class Reserva {
 
     public Cliente getCliente() {
         return cliente;
-    }
-
-    public CalculadorCostoReserva getCalculadorCostoReserva() {
-        return calculadorCostoReserva;
     }
 }
 
