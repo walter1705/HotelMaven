@@ -4,20 +4,17 @@ import co.edu.uniquindio.hotel.services.Iconsumible;
 
 public abstract class Servicio implements Iconsumible{
 
-    private String nombre;
-
+    protected double precio;
     
-
-    public Servicio(String nombre) {
-        this.nombre = nombre;
+    public Servicio(double precio) {
+        this.precio = precio;
     }
 
     public abstract void consumir();
 
-
-
-    public String getNombre() {
-        return nombre;
+    public double getPrecio() {
+        return precio;
     }
+    
 }
 

@@ -7,8 +7,6 @@ public class Hotel {
     private List<Habitacion> listaHabitaciones = new ArrayList<>();
     private List<Reserva> listaReservas = new ArrayList<>();
     private List<Cliente> listaClientes = new ArrayList<>();
-    private List<Servicio> listaServicios = new ArrayList<>();
-    private double ingresos; //temporal
 
     public void agregarHabitacion(Habitacion habitacion) {
         listaHabitaciones.add(habitacion);
@@ -18,13 +16,6 @@ public class Hotel {
     }
     public void agregarCliente(Cliente cliente) {
         listaClientes.add(cliente);
-    }
-    public void agregarServicio(Servicio servicio) {
-        listaServicios.add(servicio);
-    }
-
-    public List<Servicio> getListaServicios() {
-        return listaServicios;
     }
 
     public List<Cliente> getListaClientes() {
@@ -53,7 +44,6 @@ public class Hotel {
 
         return reservas;
     }
-
     public List<Reserva> reservasCliente(String id) {
         List<Reserva> reservas = new ArrayList<>();
         int tamanioListaReservas = listaReservas.size();
@@ -69,5 +59,11 @@ public class Hotel {
 
         return reservas;
     }
-
+    public double ingresosActuales() {
+        double ingresos = 0;
+        for (Reserva reserva : listaReservas) {
+            ingresos += reserva.getHabitacion().getPrecio();
+        }
+        return ingresos;
+    }
 }

@@ -2,8 +2,8 @@ package co.edu.uniquindio.hotel.model;
 
 public class Restaurante extends Servicio {
 
-    public Restaurante() {
-        super("Restaurante");
+    public Restaurante(double precio) {
+        super(precio);
     }
 
     @Override

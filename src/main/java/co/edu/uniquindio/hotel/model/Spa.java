@@ -2,8 +2,8 @@ package co.edu.uniquindio.hotel.model;
 
 public class Spa extends Servicio {
 
-    public Spa() {
-        super("Spa");
+    public Spa(double precio) {
+        super(precio);
     }
 
     @Override
