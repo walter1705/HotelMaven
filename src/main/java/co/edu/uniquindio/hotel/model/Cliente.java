@@ -1,5 +1,7 @@
 package co.edu.uniquindio.hotel.model;
 
+import co.edu.uniquindio.hotel.builder.ClienteBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,12 @@ public class Cliente {
     private String nombre;
     private String id;
     private List<Reserva>  reservasActivas  = new ArrayList<>();
-    
+
+   public Cliente(String nombre, String id) {
+        this.nombre = nombre;
+        this.id = id;
+    }
+
     public void agregarReserva(Reserva reserva) {
         reservasActivas.add(reserva);
     }
@@ -18,24 +25,13 @@ public class Cliente {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public List<Reserva> getReservasActivas() {
         return reservasActivas;
     }
 
-    public void setReservasActivas(List<Reserva> reservasActivas) {
-        this.reservasActivas = reservasActivas;
-    }
 }
 
