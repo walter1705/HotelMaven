@@ -30,14 +30,14 @@ public class Hotel {
         return listaHabitaciones;
     }
 
-    public List<Reserva> reservasIntervaloFechas(Date fechaInicial, Date fechFinal) {
+    public List<Reserva> reservasIntervaloFechas(Date fechaInicial, Date fechaFinal) {
         List<Reserva> reservas = new ArrayList<>();
         for (Reserva reserva : listaReservas) {
-            if (reserva.getFechaEntrada().after(fechaInicial) && reserva.getFechaSalida().before(fechaInicial)) 
+            if (reserva.getFechaEntrada().after(fechaInicial) && reserva.getFechaSalida().before(fechaFinal))
                 reservas.add(reserva);
         }
         //for para imprimir por consola que el metodo funciona
-        System.out.println("Las reservas que se hicieron entre las fechas ingresadas fueron: "+reservas.size());
+        System.out.println("Las reservas que se hicieron entre las fechas ingresadas fueron "+reservas.size()+":" );
         for (Reserva reserva : reservas) {
             System.out.println(reserva.toString());
         }

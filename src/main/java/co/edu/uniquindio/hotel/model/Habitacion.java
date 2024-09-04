@@ -16,6 +16,7 @@ public abstract class Habitacion { // Puede ser "simple", "doble", "suite"
 
     public void agregarServicio(Servicio servicio) {
                 servicios.add(servicio);
+                precio+=servicio.getPrecio();
     }
 
     public int getNumero() {

@@ -42,28 +42,24 @@ public class ModelFactory {
         hotel.agregarHabitacion(habitacion1);
         hotel.agregarHabitacion(habitacion2);
         // Crear fechas
-        Date fechaEntrada = new Date(System.currentTimeMillis() + 2L * 24 * 60 * 60 * 1000); // Dentro de 2 días
-        Date fechaSalida = new Date(System.currentTimeMillis() + 5L * 24 * 60 * 60 * 1000);
+        Calendar cal = Calendar.getInstance();
+        cal.set(2024, Calendar.AUGUST, 5);
+        Date fechaEntrada = cal.getTime();
+        cal.set(2024, Calendar.AUGUST, 10);
+        Date fechaSalida = cal.getTime();
         // Crear reserva
         Reserva reserva = new Reserva(habitacion1, cliente1, fechaEntrada, fechaSalida);
         cliente1.agregarReserva(reserva);
         hotel.agregarReserva(reserva);
-
      //Añadir servicios a la habitación
-        Servicio servicioHabitacion = new ServicioHabitacion();
+        Servicio servicioHabitacion = new ServicioHabitacion(75000);
         habitacion1.agregarServicio(servicioHabitacion);
         servicioHabitacion.consumir();
-        hotel.agregarServicio(servicioHabitacion);
-        Servicio spa = new Spa();
+        Servicio spa = new Spa(50000);
         habitacion1.agregarServicio(spa);
         spa.consumir();
-        hotel.agregarServicio(spa);
-        // Crear y generar factura
-       
+               // Crear reservas
 
-        //ultimo ejercicio
-        // Crear reservas
-        Calendar cal = Calendar.getInstance();
         cal.set(2024, Calendar.AUGUST, 1); // 1 de agosto de 2024
         Date fechaEntrada1 = cal.getTime();
         cal.set(2024, Calendar.AUGUST, 5); // 5 de agosto de 2024
@@ -76,6 +72,9 @@ public class ModelFactory {
         Reserva reserva2 = new Reserva(habitacion2, cliente2, fechaEntrada2, fechaSalida2);
         hotel.agregarReserva(reserva1);
         hotel.agregarReserva(reserva2);
-        // Crear reporte de ingresos y mostrarlo
+           }
+
+    public void reservaIntervalosFechas(Date fechaInicial, Date fechaFinal) {
+        hotel.reservasIntervaloFechas(fechaInicial, fechaFinal);
     }
 }
