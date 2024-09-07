@@ -1,9 +1,12 @@
 package co.edu.uniquindio.hotel.model;
 
+import co.edu.uniquindio.hotel.builder.ClienteBuilder;
+import co.edu.uniquindio.hotel.services.IClienteCrud;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-public class Hotel {
+public class Hotel implements IClienteCrud {
     private List<Habitacion> listaHabitaciones = new ArrayList<>();
     private List<Reserva> listaReservas = new ArrayList<>();
     private List<Cliente> listaClientes = new ArrayList<>();
@@ -64,6 +67,58 @@ public class Hotel {
         for (Reserva reserva : listaReservas) {
             ingresos += reserva.getHabitacion().getPrecio();
         }
+        System.out.println("Los ingresos totales del hotel son: "+ingresos+"$");
         return ingresos;
+    }
+
+    @Override
+    public boolean crearCliente(String nombre, String id) {
+        Cliente clienteExiste = obtenerCliente(id);
+        if (clienteExiste == null) {
+            ClienteBuilder clienteBuilder = new ClienteBuilder();
+            Cliente cliente = clienteBuilder.nombre(nombre).id(id).build();
+            listaClientes.add(cliente);
+            return true;
+        }
+
+        return false;
+    }
+
+    private Cliente obtenerCliente(String id) {
+        Cliente cliente1 = null;
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getId().equals(id)) {
+                cliente1 = cliente;
+                break;
+            }
+        }
+
+        return cliente1;
+    }
+
+    @Override
+    public boolean eliminarCliente(String id) {
+        Cliente clienteExiste = obtenerCliente(id);
+        if(clienteExiste!=null){
+            listaClientes.remove(clienteExiste);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean actualizarCliente(String nombre, String id) {
+        Cliente clienteExiste = obtenerCliente(id);
+        if (clienteExiste!=null) {
+            for (Cliente cliente : listaClientes) {
+                if (cliente.getId().equals(id)) {
+                    ClienteBuilder clienteBuilder = new ClienteBuilder();
+                    cliente = clienteBuilder.nombre(nombre).id(id).build();
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

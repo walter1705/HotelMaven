@@ -1,11 +1,13 @@
 package co.edu.uniquindio.hotel.factory;
 
+import co.edu.uniquindio.hotel.builder.ClienteBuilder;
 import co.edu.uniquindio.hotel.model.*;
+import co.edu.uniquindio.hotel.services.IClienteCrud;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class ModelFactory {
+public class ModelFactory implements IClienteCrud {
     private static ModelFactory modelFactory;
     private Hotel hotel;
 
@@ -21,20 +23,15 @@ public class ModelFactory {
     }
     public void inicializarDatos() {
         hotel = new Hotel();
+        ClienteBuilder clienteBuilder = new ClienteBuilder();
         // cliente 1
-        Cliente cliente1 = new Cliente();
-        cliente1.setNombre("Yeral");
-        cliente1.setId("1004");
+        Cliente cliente1 = clienteBuilder.nombre("Yeral").id("1004").build();
         hotel.agregarCliente(cliente1);
         // cliente 2
-        Cliente cliente2 = new Cliente();
-        cliente2.setNombre("Maria");
-        cliente2.setId("1005");
+        Cliente cliente2 = clienteBuilder.nombre("MARIA").id("1005").build();
         hotel.agregarCliente(cliente2);
-    // cliente 3
-        Cliente cliente3 = new Cliente();
-        cliente3.setNombre("Pedro");
-        cliente3.setId("1006");
+        // cliente 3
+        Cliente cliente3 = clienteBuilder.nombre("Pedro").id("1006").build();
         hotel.agregarCliente(cliente2);
         // Crear habitaciones
         Habitacion habitacion1 = new HaSimple(101, 150.0);
@@ -76,5 +73,29 @@ public class ModelFactory {
 
     public void reservaIntervalosFechas(Date fechaInicial, Date fechaFinal) {
         hotel.reservasIntervaloFechas(fechaInicial, fechaFinal);
+    }
+
+    public void reservasCliente(String id) {
+        hotel.reservasCliente(id);
+    }
+
+    public void ingresosActuales() {
+        hotel.ingresosActuales();
+    }
+
+
+    @Override
+    public boolean crearCliente(String nombre, String id) {
+        return hotel.crearCliente(nombre, id);
+    }
+
+    @Override
+    public boolean eliminarCliente(String id) {
+        return hotel.eliminarCliente(id);
+    }
+
+    @Override
+    public boolean actualizarCliente(String nombre, String id) {
+        return hotel.actualizarCliente(nombre, id);
     }
 }

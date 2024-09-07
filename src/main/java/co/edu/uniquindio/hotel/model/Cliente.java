@@ -1,6 +1,6 @@
 package co.edu.uniquindio.hotel.model;
 
-import co.edu.uniquindio.hotel.builder.ClienteBuilder;
+
 
 import java.util.ArrayList;
 import java.util.List;
