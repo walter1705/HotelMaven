@@ -95,7 +95,15 @@ public class ModelFactory implements IClienteCrud {
     }
 
     @Override
-    public boolean actualizarCliente(String nombre, String id) {
-        return hotel.actualizarCliente(nombre, id);
+    public boolean actualizarCliente(String nombre, String id, String idNuevo) {
+        return hotel.actualizarCliente(nombre, id, idNuevo);
+    }
+
+    public void crearReserva(HaDoble habitacionDoble, Cliente cliente, Date fechaInicial, Date fechaFinal) {
+        hotel.crearReserva(habitacionDoble, cliente, fechaInicial, fechaFinal);
+    }
+
+    public void crearHabitacionSimple(int numero, double precio) {
+        hotel.crearHabitacionSimple(numero, precio);
     }
 }
