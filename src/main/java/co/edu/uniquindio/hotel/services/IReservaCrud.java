@@ -6,5 +6,7 @@ import java.util.Date;
 public interface IReservaCrud {
     boolean crearReserva(Habitacion habitacion, Cliente cliente, Date fechaEntrada, Date fechaSalida);
     boolean eliminarReserva(Habitacion habitacion);
-    boolean actualizarReserva(Habitacion habitacion, Cliente cliente, Date fechaEntrada, Date fechaSalida, Habitacion habitacionNueva);
+    boolean actualizarReserva(Habitacion habitacion, Habitacion habitacionNueva, Cliente cliente, Date fechaEntrada,
+                              Date fechaSalida
+                              );
 }

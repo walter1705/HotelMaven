@@ -3,30 +3,40 @@ package co.edu.uniquindio.hotel.builder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.attribute.standard.JobHoldUntil;
+
 import co.edu.uniquindio.hotel.model.Habitacion;
 import co.edu.uniquindio.hotel.model.Servicio;
+import co.edu.uniquindio.hotel.model.TipoHabitacion;
 
-public abstract class HabitacionBuilder <T extends HabitacionBuilder<T>>{
+public class HabitacionBuilder{
     protected int numero;
     protected double precio;
     protected List<Servicio> servicios = new ArrayList<>();
+    protected TipoHabitacion tipoHabitacion;
 
-    public T numero(int numero) {
+    public HabitacionBuilder numero(int numero) {
         this.numero = numero;
-        return self();
+        return this;
     }
 
-    public T precio(double precio) {
+    public HabitacionBuilder precio(double precio) {
         this.precio = precio;
-        return self();
+        return this;
     }
 
-    public T servicios(List<Servicio> servicios) {
+    public HabitacionBuilder servicios(List<Servicio> servicios) {
         this.servicios = servicios;
-        return self();
+        return this;
     }
 
-    protected abstract T self();
+    public HabitacionBuilder tipoHabitacion(TipoHabitacion tipoHabitacion) {
+        this.tipoHabitacion = tipoHabitacion;
+        return this;
+    }
 
-    public abstract Habitacion build();
+
+    public  Habitacion build() {
+        return new Habitacion(numero, precio, tipoHabitacion);
+    }
 }

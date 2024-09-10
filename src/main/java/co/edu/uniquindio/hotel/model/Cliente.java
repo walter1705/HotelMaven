@@ -1,4 +1,5 @@
 package co.edu.uniquindio.hotel.model;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -6,7 +7,7 @@ import java.util.List;
 public class Cliente {
     private String nombre;
     private String id;
-    private List<Reserva> reservasActivas;
+    private List<Reserva> reservasActivas = new ArrayList<>();
 
    public Cliente(String nombre, String id) {
         this.nombre = nombre;

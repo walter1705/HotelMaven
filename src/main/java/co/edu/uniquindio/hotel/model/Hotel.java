@@ -1,17 +1,20 @@
 package co.edu.uniquindio.hotel.model;
 
+import co.edu.uniquindio.hotel.*;
 import co.edu.uniquindio.hotel.builder.ClienteBuilder;
-import co.edu.uniquindio.hotel.builder.HaSimpleBuilder;
+import co.edu.uniquindio.hotel.builder.HabitacionBuilder;
 import co.edu.uniquindio.hotel.builder.ReservaBuilder;
 import co.edu.uniquindio.hotel.services.IClienteCrud;
-
-import co.edu.uniquindio.hotel.services.IHabitacionSimpleCrud;
+import co.edu.uniquindio.hotel.services.IHabitacionCrud;
 import co.edu.uniquindio.hotel.services.IReservaCrud;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 import java.util.Date;
-public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud {
+public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionCrud {
     private List<Habitacion> listaHabitaciones = new ArrayList<>();
     private List<Reserva> listaReservas = new ArrayList<>();
     private List<Cliente> listaClientes = new ArrayList<>();
@@ -72,7 +75,7 @@ public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud 
         for (Reserva reserva : listaReservas) {
             ingresos += reserva.getHabitacion().getPrecio();
         }
-        //System.out.println("Los ingresos totales del hotel son: "+ingresos+"$");
+        System.out.println("Los ingresos totales del hotel son: "+ingresos+"$");
         return ingresos;
     }
 
@@ -80,8 +83,10 @@ public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud 
     public boolean crearCliente(String nombre, String id) {
         Cliente clienteExiste = obtenerCliente(id);
         if (clienteExiste == null) {
-            ClienteBuilder clienteBuilder = new ClienteBuilder();
-            Cliente cliente = clienteBuilder.nombre(nombre).id(id).build();
+            Cliente cliente = new ClienteBuilder()
+                    .nombre(nombre)
+                    .id(id)
+                    .build();
             listaClientes.add(cliente);
             return true;
         }
@@ -127,9 +132,9 @@ public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud 
     }
 
     private Reserva obtenerReserva(Habitacion habitacion) {
-        Reserva reservaNew = new Reserva(null, null, null, null);
+        Reserva reservaNew = null;
         for (Reserva reserva : listaReservas) {
-            if (reserva.getHabitacion().equals(habitacion)) {
+            if (reserva.getHabitacion().getNumero()==habitacion.getNumero()) {
                 reservaNew = reserva;
             }
         }
@@ -139,8 +144,8 @@ public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud 
     @Override
     public boolean crearReserva(Habitacion habitacion, Cliente cliente, Date fechaEntrada, Date fechaSalida) {
         Reserva reservaNew = obtenerReserva(habitacion);
-        if (reservaNew==null) return false;
-        else listaReservas.add(new Reserva(habitacion, cliente, fechaEntrada, fechaSalida));
+        if (reservaNew!=null) return false;
+        listaReservas.add(new Reserva(habitacion, cliente, fechaEntrada, fechaSalida));
 
         return true;
     }
@@ -148,13 +153,14 @@ public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud 
     public boolean eliminarReserva(Habitacion habitacion) {
         Reserva reservaNew = obtenerReserva(habitacion);
         if (reservaNew==null) return false;
-        else listaReservas.remove(reservaNew); 
+        listaReservas.remove(reservaNew);
         
         return true;
     }
     @Override
-    public boolean actualizarReserva(Habitacion habitacion, Cliente cliente, Date fechaEntrada, Date fechaSalida,
-            Habitacion habitacionNueva) {
+    public boolean actualizarReserva(Habitacion habitacion, Habitacion habitacionNueva,
+                                     Cliente cliente, Date fechaEntrada, Date fechaSalida
+            ) {
         Reserva reservaNew = obtenerReserva(habitacion);
         if (reservaNew!=null) {
             for (Reserva reserva : listaReservas) {
@@ -183,16 +189,19 @@ public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud 
         return habitacion;
     }
     @Override
-    public boolean crearHabitacionSimple(int numero, double precio) {
+    public boolean crearHabitacion(int numero, double precio, TipoHabitacion tipoHabitacion) {
         Habitacion hExiste = obtenerHabitacion(numero);
-        if (hExiste==null) return false;
-        listaHabitaciones.add(new HaSimple(numero, precio)); 
+        if (hExiste!=null) return false;
+        listaHabitaciones.add(new HabitacionBuilder().precio(precio)
+                .numero(numero)
+                .tipoHabitacion(tipoHabitacion)
+                .build());
         
         return true;
     }
     
     @Override
-    public boolean eliminarHabitacionSimple(int numero) {
+    public boolean eliminarHabitacion(int numero) {
         Habitacion hExiste= obtenerHabitacion(numero);
         if (hExiste==null) return false;
         listaHabitaciones.remove(hExiste);
@@ -201,12 +210,16 @@ public class Hotel implements IClienteCrud, IReservaCrud, IHabitacionSimpleCrud 
 
     }
     @Override
-    public boolean actualizarHabitacionSimple(int numero, int numeroNuevo, double precio) {
+    public boolean actualizarHabitacion(int numero, int numeroNuevo, double precio, TipoHabitacion tipoHabitacion) {
         Habitacion hExiste= obtenerHabitacion(numero);
         if (hExiste!=null) {
             for (Habitacion habitacion : listaHabitaciones) {
                 if (habitacion.getNumero()==numero) {
-                    habitacion = new HaSimpleBuilder().numero(numeroNuevo).precio(precio).build();
+                    habitacion = new HabitacionBuilder()
+                            .numero(numeroNuevo)
+                            .precio(precio)
+                            .tipoHabitacion(tipoHabitacion)
+                            .build();
                     return true;
                 }
             }

@@ -1,10 +1,11 @@
 package co.edu.uniquindio.hotel;
 
 import co.edu.uniquindio.hotel.builder.ClienteBuilder;
-import co.edu.uniquindio.hotel.builder.HaDobleBuilder;
-import co.edu.uniquindio.hotel.builder.HaSimpleBuilder;
+import co.edu.uniquindio.hotel.builder.HabitacionBuilder;
 import co.edu.uniquindio.hotel.factory.ModelFactory;
-import co.edu.uniquindio.hotel.model.*;
+import co.edu.uniquindio.hotel.model.Cliente;
+import co.edu.uniquindio.hotel.model.Habitacion;
+import co.edu.uniquindio.hotel.model.TipoHabitacion;
 
 import java.util.Date;
 import java.util.Calendar;
@@ -14,8 +15,8 @@ public class Main {
         reservaIntervalosFechas(modelFactory);
         reservasCliente(modelFactory);
         ingresosActuales(modelFactory);
-        crudCliente(modelFactory);
-        crudHabitacionSimple(modelFactory);
+        //crudCliente(modelFactory);
+        //crudHabitacion(modelFactory);
         crudReserva(modelFactory);
     }
 
@@ -26,12 +27,34 @@ public class Main {
     }
 
     private static void actualizarReserva(ModelFactory modelFactory) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizarReserva'");
+        Calendar calendarInstance = Calendar.getInstance();
+        calendarInstance.set(2024, Calendar.AUGUST, 10);
+        Date fechaInicial = calendarInstance.getTime();
+        calendarInstance.set(2024, Calendar.AUGUST, 12);
+        Date fechaFinal = calendarInstance.getTime();
+        Cliente cliente = new ClienteBuilder()
+                .nombre("Josie")
+                .id("").
+                build();
+        Habitacion habitacion = new HabitacionBuilder()
+                .numero(5)
+                .build();
+        Habitacion habitacionNueva = new HabitacionBuilder()
+                .numero(10)
+                .precio(100000)
+                .tipoHabitacion(TipoHabitacion.SIMPLE)
+                .build();
+        boolean result = modelFactory.actualizarReserva(habitacion, habitacionNueva, cliente,
+                fechaInicial, fechaFinal);
+        if (result) System.out.println("Reserva actualizada. ");
+        else System.out.println("Reserva no existente.  ");
     }
 
     private static void eliminarReserva(ModelFactory modelFactory) {
-        //uuuuuuuuuuuuuuu
+        Habitacion habitacion = new HabitacionBuilder().numero(5).build();
+        boolean result = modelFactory.eliminarReserva(habitacion);
+        if (result) System.out.println("Reserva eliminada. ");
+        else System.out.println("Reserva no existe.  ");
     }
 
     private static void crearReserva(ModelFactory modelFactory) {
@@ -40,31 +63,53 @@ public class Main {
         Date fechaInicial = calendarInstance.getTime();
         calendarInstance.set(2024, Calendar.AUGUST, 8);
         Date fechaFinal = calendarInstance.getTime();
-        Cliente cliente = new ClienteBuilder().nombre("Jos").id("3443").build();
-        HaDoble habitacionDoble = new HaDobleBuilder().numero(11).precio(55000).build();
-        modelFactory.crearReserva(habitacionDoble, cliente, fechaInicial, fechaFinal);
+        Cliente cliente = new ClienteBuilder()
+                .nombre("Jos")
+                .id("3443").
+                build();
+        Habitacion habitacion = new HabitacionBuilder()
+                .numero(5)
+                .precio(55000)
+                .tipoHabitacion(TipoHabitacion.SIMPLE)
+                .build();
+
+        boolean result = modelFactory.crearReserva(habitacion, cliente, fechaInicial, fechaFinal);
+        if (result) System.out.println("Reserva creada. ");
+        else System.out.println("Reserva existente.  ");
+
     }
 
-    private static void crudHabitacionSimple(ModelFactory modelFactory) {
-        crearHabitacionSimple(modelFactory);
-        actualizarHabitacionSimple(modelFactory);
-        eliminarHabitacionSimple(modelFactory);
+    private static void crudHabitacion(ModelFactory modelFactory) {
+        crearHabitacion(modelFactory);
+        actualizarHabitacion(modelFactory);
+        eliminarHabitacion(modelFactory);
     }
 
-    private static void eliminarHabitacionSimple(ModelFactory modelFactory) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminarHabitacion'");
+    private static void eliminarHabitacion(ModelFactory modelFactory) {
+        int numero = 10;
+        boolean result =   modelFactory.eliminarHabitacion(numero);
+        if (result) System.out.println("Habitacion eliminada. ");
+        else System.out.println("Habitacion no existente.  ");
     }
 
-    private static void crearHabitacionSimple(ModelFactory modelFactory) {
-        int numero = 15;
+    private static void crearHabitacion(ModelFactory modelFactory) {
+        int numero = 10;
         double precio = 78000;
-        modelFactory.crearHabitacionSimple(numero, precio);
+
+        boolean result = modelFactory.crearHabitacion(numero, precio, TipoHabitacion.SIMPLE);
+        if (result) System.out.println("Habitacion creada. ");
+        else System.out.println("Habitacion existente.  ");
     }
 
-    private static void actualizarHabitacionSimple(ModelFactory modelFactory) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizarHabitacion'");
+    private static void actualizarHabitacion(ModelFactory modelFactory) {
+        int numero = 5;
+        int numeroNuevo = 17;
+        double precio = 170000.0;
+
+        boolean result = modelFactory.actualizarHabitacion(numero, numeroNuevo, precio, TipoHabitacion.DOBLE);
+        if (result) System.out.println("Habitacion actualizada");
+        else System.out.println("Habitacion no existente ");
+
     }
 
     private static void crudCliente(ModelFactory modelFactory) {
@@ -72,10 +117,6 @@ public class Main {
         eliminarCliente(modelFactory);
         actualizarCliente(modelFactory);
      }
-
-
-
-
 
 
     private static void actualizarCliente(ModelFactory modelFactory) {

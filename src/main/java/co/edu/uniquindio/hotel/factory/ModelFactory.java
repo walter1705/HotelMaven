@@ -1,6 +1,7 @@
 package co.edu.uniquindio.hotel.factory;
 
 import co.edu.uniquindio.hotel.builder.ClienteBuilder;
+import co.edu.uniquindio.hotel.builder.HabitacionBuilder;
 import co.edu.uniquindio.hotel.model.*;
 import co.edu.uniquindio.hotel.services.IClienteCrud;
 
@@ -34,8 +35,16 @@ public class ModelFactory implements IClienteCrud {
         Cliente cliente3 = clienteBuilder.nombre("Pedro").id("1006").build();
         hotel.agregarCliente(cliente2);
         // Crear habitaciones
-        Habitacion habitacion1 = new HaSimple(101, 150.0);
-        Habitacion habitacion2 = new HaDoble(102,  250.0);
+        Habitacion habitacion1 = new HabitacionBuilder()
+                .precio(120000.0)
+                .numero(5)
+                .tipoHabitacion(TipoHabitacion.DOBLE)
+                .build();
+        Habitacion habitacion2 = new HabitacionBuilder()
+                .precio(100000.0)
+                .numero(7)
+                .tipoHabitacion(TipoHabitacion.SIMPLE)
+                .build();
         hotel.agregarHabitacion(habitacion1);
         hotel.agregarHabitacion(habitacion2);
         // Crear fechas
@@ -99,11 +108,29 @@ public class ModelFactory implements IClienteCrud {
         return hotel.actualizarCliente(nombre, id, idNuevo);
     }
 
-    public void crearReserva(HaDoble habitacionDoble, Cliente cliente, Date fechaInicial, Date fechaFinal) {
-        hotel.crearReserva(habitacionDoble, cliente, fechaInicial, fechaFinal);
+    public boolean crearHabitacion(int numero, double precio, TipoHabitacion tipoHabitacion) {
+        return hotel.crearHabitacion(numero, precio, tipoHabitacion);
     }
 
-    public void crearHabitacionSimple(int numero, double precio) {
-        hotel.crearHabitacionSimple(numero, precio);
+    public boolean eliminarHabitacion(int numero) {
+        return hotel.eliminarHabitacion(numero);
     }
+
+    public boolean actualizarHabitacion(int numero, int numeroNuevo, double precio, TipoHabitacion tipoHabitacion) {
+        return hotel.actualizarHabitacion(numero, numeroNuevo, precio, tipoHabitacion);
+    }
+
+    public boolean eliminarReserva(Habitacion habitacion) {
+        return hotel.eliminarReserva(habitacion);
+    }
+
+    public boolean crearReserva(Habitacion habitacion, Cliente cliente, Date fechaInicial, Date fechaFinal) {
+        return hotel.crearReserva(habitacion, cliente, fechaInicial, fechaFinal);
+    }
+
+    public boolean actualizarReserva(Habitacion habitacion, Habitacion habitacionNueva,
+                                     Cliente cliente, Date fechaEntrada, Date fechaSalida) {
+        return hotel.actualizarReserva(habitacion, habitacionNueva, cliente, fechaEntrada, fechaSalida);
+    }
+
 }
